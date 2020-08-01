@@ -1,8 +1,20 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-function Movie({ movieDetails }) {
+import { MovieDetails } from "../../api/movieDetails";
+import { NextPageContext } from "next";
+
+interface MovieDetailsProps {
+    movieDetails?: MovieDetails;
+}
+
+interface CustomNextPageContext  extends NextPageContext{
+query: {
+    movie: string;
+       }
+}
+
+function Movie({ movieDetails }: MovieDetailsProps) {
     const router = useRouter();
-    console.log(router.query);
     const [movie, setMovie] = useState(movieDetails);
     useEffect(() => {
         async function loadData() {
@@ -23,12 +35,12 @@ function Movie({ movieDetails }) {
     return <div>{JSON.stringify(movie)}</div>;
 }
 
-Movie.getInitialProps = async context => {
-    if (!context.req) return { movieDetails: {} };
+Movie.getInitialProps = async ({query, req}: CustomNextPageContext) => {
+    if (!req) return { movieDetails: {} };
     const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${context.query.movie}?api_key=4b3d06492e3ec908d60ebda3525a807f`
+        `https://api.themoviedb.org/3/movie/${query.movie}?api_key=4b3d06492e3ec908d60ebda3525a807f`
     );
-    const apiData = await response.json();
+    const apiData: MovieDetails | undefined = await response.json();
     return { movieDetails: apiData };
 };
 
