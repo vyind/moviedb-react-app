@@ -1,11 +1,19 @@
 import { MovieList, Result } from "../../../api/movieList";
 import ItemList from "../../components/itemList";
 import { useState, useEffect } from "react";
+import { NextPageContext } from "next";
+import { useRouter } from "next/router";
 
 interface PopularListProps {
   moviesPopular?: Result[];
   useHorizontal: boolean;
   categoryName: string;
+}
+
+interface CustomNextPageContext extends NextPageContext {
+  query: {
+    category: string;
+  };
 }
 
 const fetchUrls = {
@@ -15,12 +23,14 @@ const fetchUrls = {
     "https://api.themoviedb.org/3/movie/top_rated?api_key=4b3d06492e3ec908d60ebda3525a807f",
 };
 
-export default function Category({
+function Category({
   moviesPopular,
   useHorizontal,
   categoryName,
 }: PopularListProps) {
   const [movies, setMovie] = useState(moviesPopular);
+  const router = useRouter();
+  if (!categoryName) categoryName = router.query["category"].toString();
   useEffect(() => {
     async function loadData() {
       const response = await fetch(fetchUrls[categoryName]);
@@ -42,10 +52,12 @@ export default function Category({
   );
 }
 
-Category.getInitialProps = async ({ req, query }) => {
-  if (!req) return { moviesPopular: {} };
+Category.getInitialProps = async ({ query, req }: CustomNextPageContext) => {
+  if (!req || !query) return { moviesPopular: {} };
   const response = await fetch(fetchUrls[query.category]);
   const apiData: MovieList | undefined = await response.json();
   const moviesPopular: Result[] | undefined = apiData.results;
   return { moviesPopular: moviesPopular, categoryName: query.category };
 };
+
+export default Category;
