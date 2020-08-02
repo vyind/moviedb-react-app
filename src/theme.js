@@ -17,6 +17,19 @@ const theme = createMuiTheme({
       default: "#fff",
     },
   },
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        "*": {
+          "scrollbar-width": "none",
+        },
+        "*::-webkit-scrollbar": {
+          width: "0px",
+          height: "0px",
+        },
+      },
+    },
+  },
 });
 
 export default theme;

@@ -12,6 +12,19 @@ const darkTheme = createMuiTheme({
   palette: {
     type: "dark",
   },
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        "*": {
+          "scrollbar-width": "none",
+        },
+        "*::-webkit-scrollbar": {
+          width: "0px",
+          height: "0px",
+        },
+      },
+    },
+  },
 });
 
 export default function MyApp(props) {
