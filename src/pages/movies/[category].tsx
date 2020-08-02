@@ -3,6 +3,9 @@ import ItemList from "../../components/itemList";
 import { useState, useEffect } from "react";
 import { NextPageContext } from "next";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 interface PopularListProps {
   moviesPopular?: Result[];
@@ -21,6 +24,11 @@ const fetchUrls = {
     "https://api.themoviedb.org/3/movie/popular?api_key=4b3d06492e3ec908d60ebda3525a807f",
   top_rated:
     "https://api.themoviedb.org/3/movie/top_rated?api_key=4b3d06492e3ec908d60ebda3525a807f",
+};
+
+const categoryHeaders = {
+  popular: "Popular Movies",
+  top_rated: "Top-Rated Movies",
 };
 
 function Category({
@@ -47,6 +55,11 @@ function Category({
     );
   return (
     <div>
+      <Link as={`/movies/${categoryName}`} href={"/movies/[category]"}>
+        <Typography variant="h3" component="h4">
+          <Button>{categoryHeaders[categoryName]}</Button>
+        </Typography>
+      </Link>
       <ItemList itemList={movies} useHorizontal={useHorizontal} type="movies" />
     </div>
   );

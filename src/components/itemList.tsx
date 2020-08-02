@@ -6,6 +6,7 @@ import Link from "next/link";
 import InfoIcon from "@material-ui/icons/Info";
 import { GridListTileBar, IconButton } from "@material-ui/core";
 import { Result } from "../../api/movieList";
+import Button from "@material-ui/core/Button";
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);
