@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { MovieDetails } from "../../../../api/movieDetails";
 import { NextPageContext } from "next";
+import ItemCard from "../../../components/itemCard";
 
 interface MovieDetailsProps {
   movieDetails?: MovieDetails;
@@ -32,7 +33,7 @@ function Movie({ movieDetails }: MovieDetailsProps) {
         <h4>Loading</h4>
       </div>
     );
-  return <div>{JSON.stringify(movie)}</div>;
+  return <ItemCard itemInfo={movie} />;
 }
 
 Movie.getInitialProps = async ({ query, req }: CustomNextPageContext) => {
