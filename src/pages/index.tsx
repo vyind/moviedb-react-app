@@ -1,6 +1,5 @@
 import Category from "./movies/[category]";
-import Link from "next/link";
-import Typography from "@material-ui/core/Typography";
+import TopAppBar from "../components/topAppBar";
 
 export default function Index() {
   return (

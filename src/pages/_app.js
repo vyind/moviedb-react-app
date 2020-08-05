@@ -4,9 +4,7 @@ import Head from "next/head";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../theme";
-import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
-import BrightnessLowIcon from "@material-ui/icons/BrightnessLow";
-import IconButton from "@material-ui/core/IconButton";
+import TopAppBar from "../components/topAppBar";
 
 const darkTheme = createMuiTheme({
   palette: {
@@ -29,7 +27,7 @@ const darkTheme = createMuiTheme({
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
-  const [useDarktheme, setDarkTheme] = useState(false);
+  const [useDarktheme, setDarkTheme] = useState(true);
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -52,9 +50,7 @@ export default function MyApp(props) {
         />
       </Head>
       <ThemeProvider theme={useDarktheme ? darkTheme : theme}>
-        <IconButton aria-label="brightness" onClick={onToggle}>
-          {useDarktheme ? <BrightnessHighIcon /> : <BrightnessLowIcon />}
-        </IconButton>
+        <TopAppBar darkIcon={useDarktheme} toggleTheme={onToggle} />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Component {...pageProps} />
