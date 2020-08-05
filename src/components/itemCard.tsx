@@ -17,20 +17,20 @@ const useStyles = makeStyles(() =>
       marginRight: 20,
     },
     details: {
-      display: "flex",
-      flexWrap: "wrap",
-      flexDirection: "column",
+      display: "inline-block",
+      //   flexWrap: "wrap",
+      //   flexDirection: "column",
       minWidth: 250,
       maxWidth: 1000,
     },
     bottomDetails: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "flex-end",
+      display: "inline-block",
+      //   flexDirection: "column",
+      //   justifyContent: "flex-end",
     },
     rating: {
-      display: "flex",
-      flexWrap: "wrap",
+      display: "inline-block",
+      //   flexWrap: "wrap",
     },
     content: {
       flex: "1 0 auto",
@@ -43,11 +43,19 @@ const useStyles = makeStyles(() =>
   })
 );
 
+const ratingColor = (rating) => {
+  if (rating >= 8.0) return "#d4af37";
+  else if (rating >= 7.0) return "#c0c0c0";
+  else if (rating >= 5.0) return "#ed7014";
+  else return "#be0000";
+};
+
 interface ItemInfoProps {
   itemInfo: MovieDetails;
 }
 
 export default function ItemCard({ itemInfo }: ItemInfoProps) {
+  const color = ratingColor(itemInfo.vote_average);
   const classes = useStyles();
 
   return (
@@ -85,26 +93,23 @@ export default function ItemCard({ itemInfo }: ItemInfoProps) {
               })}
             </Typography>
           </div>
-          <div>
-            <Typography display="inline" variant="body2" color="textPrimary">
-              <b>Language:&nbsp;</b>
-            </Typography>
-            <Typography display="inline" variant="body2" color="textSecondary">
-              {itemInfo.original_language}
-            </Typography>
-          </div>
         </CardContent>
       </div>
       <div className={classes.details}>
-        {" "}
-        <CardContent className={(classes.rating, classes.content)}>
-          <Typography component="h4" variant="h5">
-            Rating: {itemInfo.vote_average}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            votes: {itemInfo.vote_count}
-          </Typography>
-        </CardContent>{" "}
+        <Card className={classes.rating} style={{ background: color }}>
+          <CardContent className={classes.content}>
+            <Typography display="inline" variant="h5">
+              {itemInfo.vote_average}
+              <Typography
+                display="inline"
+                variant="body2"
+                color="textSecondary"
+              >
+                <em> ({itemInfo.vote_count})</em>
+              </Typography>
+            </Typography>
+          </CardContent>
+        </Card>
       </div>
     </Card>
   );

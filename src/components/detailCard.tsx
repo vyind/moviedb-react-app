@@ -26,13 +26,12 @@ const useStyles = makeStyles({
 });
 
 const formattedDetail = (detail) => {
-  console.log(typeof detail);
   if (typeof detail === typeof []) {
     return (
       <Typography variant="subtitle2">
         {detail.map((value, index) => {
           if (index === 0) return value.name;
-          return <span> • {value.name}</span>;
+          return <span key={index}> • {value.name}</span>;
         })}
       </Typography>
     );
