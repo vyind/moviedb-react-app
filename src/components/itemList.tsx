@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     gridList: {
       flexWrap: "wrap",
       transform: "translateZ(0)",
+      scrollBehavior: "smooth",
     },
     gridListHorizontal: {
       flexWrap: "nowrap",
@@ -73,41 +74,46 @@ export default function ItemList({
   const colNo: number = Math.floor(size[0] / 200);
   const [scrollState, setScrollState] = useState(0);
   const scrollRef = useRef(null);
+
   function scrollContentLeft() {
     scrollRef.current.scrollLeft = scrollState - 250;
-    setScrollState(scrollState - 250);
+    setScrollState(scrollRef.current.scrollLeft);
   }
   function scrollContentRight() {
     scrollRef.current.scrollLeft = scrollState + 250;
-    setScrollState(scrollState + 250);
+    setScrollState(scrollRef.current.scrollLeft);
   }
 
-  function scrollBeforeStatus() {
-    if (scrollState === 0)
-      return (
-        <Button onClick={scrollContentLeft} disabled>
-          <NavigateBeforeIcon fontSize="large" />
-        </Button>
-      );
-    return (
-      <Button onClick={scrollContentLeft}>
-        <NavigateBeforeIcon fontSize="large" />
-      </Button>
-    );
+  function scrollContent() {
+    setScrollState(scrollRef.current.scrollLeft);
   }
-  function scrollNextStatus() {
-    if (scrollRef.current && scrollState >= scrollRef.current.scrollLeftMax)
+
+  const scrollButtons = () => {
+    if (useHorizontal)
       return (
-        <Button onClick={scrollContentRight} disabled>
-          <NavigateNextIcon fontSize="large" />
-        </Button>
+        <div className={classes.scrollDiv}>
+          <Button
+            onClick={scrollContentLeft}
+            disabled={scrollState === 0 ? true : false}
+          >
+            <NavigateBeforeIcon fontSize="large" />
+          </Button>
+          <Button
+            onClick={scrollContentRight}
+            disabled={
+              scrollState === 0
+                ? false
+                : scrollState < scrollRef.current.scrollLeftMax
+                ? false
+                : true
+            }
+          >
+            <NavigateNextIcon fontSize="large" />
+          </Button>
+        </div>
       );
-    return (
-      <Button onClick={scrollContentRight}>
-        <NavigateNextIcon fontSize="large" />
-      </Button>
-    );
-  }
+    return null;
+  };
 
   return (
     <div>
@@ -117,6 +123,7 @@ export default function ItemList({
           cols={colNo}
           cellHeight={300}
           ref={scrollRef}
+          onScroll={scrollContent}
         >
           {itemList.map((item) => (
             <GridListTile
@@ -149,10 +156,7 @@ export default function ItemList({
           ))}
         </GridList>
       </div>
-      <div className={classes.scrollDiv}>
-        {scrollBeforeStatus()}
-        {scrollNextStatus()}
-      </div>
+      {scrollButtons()}
     </div>
   );
 }
