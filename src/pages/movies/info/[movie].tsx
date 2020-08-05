@@ -4,6 +4,7 @@ import { MovieDetails } from "../../../../api/movieDetails";
 import { NextPageContext } from "next";
 import ItemCard from "../../../components/itemCard";
 import ItemDetails from "../../../components/itemDetails";
+import settings from "../../../settings";
 
 interface MovieDetailsProps {
   movieDetails?: MovieDetails;
@@ -21,7 +22,7 @@ function Movie({ movieDetails }: MovieDetailsProps) {
   useEffect(() => {
     async function loadData() {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${router.query.movie}?api_key=4b3d06492e3ec908d60ebda3525a807f`
+        `https://api.themoviedb.org/3/movie/${router.query.movie}?api_key=${settings.api_key}`
       );
       const apiData = await response.json();
       setMovie(apiData);
@@ -45,7 +46,7 @@ function Movie({ movieDetails }: MovieDetailsProps) {
 Movie.getInitialProps = async ({ query, req }: CustomNextPageContext) => {
   if (!req) return { movieDetails: {} };
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${query.movie}?api_key=4b3d06492e3ec908d60ebda3525a807f`
+    `https://api.themoviedb.org/3/movie/${query.movie}?api_key=${settings.api_key}`
   );
   const apiData: MovieDetails | undefined = await response.json();
   return { movieDetails: apiData };

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import settings from "../../settings";
 
 interface PopularListProps {
   moviesPopular?: Result[];
@@ -20,10 +21,8 @@ interface CustomNextPageContext extends NextPageContext {
 }
 
 const fetchUrls = {
-  popular:
-    "https://api.themoviedb.org/3/movie/popular?api_key=4b3d06492e3ec908d60ebda3525a807f",
-  top_rated:
-    "https://api.themoviedb.org/3/movie/top_rated?api_key=4b3d06492e3ec908d60ebda3525a807f",
+  popular: `https://api.themoviedb.org/3/movie/popular?api_key=${settings.api_key}`,
+  top_rated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${settings.api_key}`,
 };
 
 const categoryHeaders = {
