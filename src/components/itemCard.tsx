@@ -5,6 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { MovieDetails } from "../../api/movieDetails";
+import Credits from "./credits";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -37,7 +38,7 @@ const useStyles = makeStyles(() =>
     },
     cover: {
       maxWidth: 500,
-      minWidth: 360,
+      minWidth: 280,
       minHeight: 400,
     },
   })
@@ -45,7 +46,7 @@ const useStyles = makeStyles(() =>
 
 const ratingColor = (rating) => {
   if (rating >= 8.0) return "#d4af37";
-  else if (rating >= 7.0) return "#c0c0c0";
+  else if (rating >= 7.0) return "#aaa9ad";
   else if (rating >= 5.0) return "#ed7014";
   else return "#be0000";
 };
@@ -92,6 +93,7 @@ export default function ItemCard({ itemInfo }: ItemInfoProps) {
                 return <span key={index}> • {genre.name}</span>;
               })}
             </Typography>
+            <Credits typeId={itemInfo.id} type="movie" />
           </div>
         </CardContent>
       </div>
