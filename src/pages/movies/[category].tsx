@@ -55,12 +55,22 @@ function Category({
     );
   return (
     <div>
-      <Link as={`/movies/${categoryName}`} href={"/movies/[category]"}>
-        <Typography variant="h3" component="h4">
-          <Button>{categoryHeaders[categoryName]}</Button>
+      <div>
+        <Typography variant="h4" component="h6">
+          <Link as={`/movies/${categoryName}`} href={"/movies/[category]"}>
+            <Button style={{ background: "transparent" }}>
+              {categoryHeaders[categoryName]}
+            </Button>
+          </Link>
         </Typography>
-      </Link>
-      <ItemList itemList={movies} useHorizontal={useHorizontal} type="movies" />
+      </div>
+      <div>
+        <ItemList
+          itemList={movies}
+          useHorizontal={useHorizontal}
+          type="movies"
+        />
+      </div>
     </div>
   );
 }

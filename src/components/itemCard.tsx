@@ -11,7 +11,7 @@ const useStyles = makeStyles(() =>
     root: {
       display: "flex",
       flexWrap: "wrap",
-      maxHeight: 1000,
+      //   maxHeight: 1200,
       marginTop: 50,
       marginLeft: 20,
       marginRight: 20,
@@ -21,7 +21,16 @@ const useStyles = makeStyles(() =>
       flexWrap: "wrap",
       flexDirection: "column",
       minWidth: 250,
-      maxWidth: 700,
+      maxWidth: 1000,
+    },
+    bottomDetails: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-end",
+    },
+    rating: {
+      display: "flex",
+      flexWrap: "wrap",
     },
     content: {
       flex: "1 0 auto",
@@ -46,17 +55,56 @@ export default function ItemCard({ itemInfo }: ItemInfoProps) {
       <CardMedia
         className={classes.cover}
         image={"https://image.tmdb.org/t/p/original" + itemInfo.poster_path}
-        title="Live from space album cover"
       />
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {itemInfo.title}
+          <Typography component="h4" variant="h5">
+            {itemInfo.title} ({itemInfo.release_date.split("-")[0]})
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {itemInfo.overview}
+          <Typography variant="subtitle2" color="textSecondary">
+            <em>{itemInfo.tagline}</em>
           </Typography>
         </CardContent>
+        <CardContent className={classes.bottomDetails}>
+          <div>
+            <Typography display="inline" variant="body2" color="textPrimary">
+              <b>Synopsis:&nbsp;</b>
+            </Typography>
+            <Typography display="inline" variant="body2" color="textSecondary">
+              {itemInfo.overview}
+            </Typography>
+          </div>
+          <div>
+            <Typography display="inline" variant="body2" color="textPrimary">
+              <b>Genre:&nbsp;</b>
+            </Typography>
+            <Typography display="inline" variant="body2" color="textSecondary">
+              {itemInfo.genres.map((genre, index) => {
+                if (index === 0) return <span key={index}>{genre.name}</span>;
+                return <span key={index}> • {genre.name}</span>;
+              })}
+            </Typography>
+          </div>
+          <div>
+            <Typography display="inline" variant="body2" color="textPrimary">
+              <b>Language:&nbsp;</b>
+            </Typography>
+            <Typography display="inline" variant="body2" color="textSecondary">
+              {itemInfo.original_language}
+            </Typography>
+          </div>
+        </CardContent>
+      </div>
+      <div className={classes.details}>
+        {" "}
+        <CardContent className={(classes.rating, classes.content)}>
+          <Typography component="h4" variant="h5">
+            Rating: {itemInfo.vote_average}
+          </Typography>
+          <Typography variant="subtitle1" color="textSecondary">
+            votes: {itemInfo.vote_count}
+          </Typography>
+        </CardContent>{" "}
       </div>
     </Card>
   );

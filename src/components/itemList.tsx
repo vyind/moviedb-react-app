@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -6,7 +6,6 @@ import Link from "next/link";
 import InfoIcon from "@material-ui/icons/Info";
 import { GridListTileBar, IconButton } from "@material-ui/core";
 import { Result } from "../../api/movieList";
-import Button from "@material-ui/core/Button";
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);

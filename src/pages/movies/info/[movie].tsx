@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { MovieDetails } from "../../../../api/movieDetails";
 import { NextPageContext } from "next";
 import ItemCard from "../../../components/itemCard";
+import ItemDetails from "../../../components/itemDetails";
 
 interface MovieDetailsProps {
   movieDetails?: MovieDetails;
@@ -33,7 +34,12 @@ function Movie({ movieDetails }: MovieDetailsProps) {
         <h4>Loading</h4>
       </div>
     );
-  return <ItemCard itemInfo={movie} />;
+  return (
+    <div>
+      <ItemCard itemInfo={movie} />
+      <ItemDetails itemInfo={movie} />
+    </div>
+  );
 }
 
 Movie.getInitialProps = async ({ query, req }: CustomNextPageContext) => {
