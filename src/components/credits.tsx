@@ -19,7 +19,7 @@ export default function Credits({ typeId, type }: CreditsProps) {
       setTypeCredits(apiData);
     }
     loadData();
-  }, []);
+  }, [typeId]);
   if (!typeCredits) return <span>...</span>;
 
   const getCrewMembers = (job) => {
