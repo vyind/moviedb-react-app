@@ -9,6 +9,7 @@ import { Result } from "../../api/movieList";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Button from "@material-ui/core/Button";
+import { useRouter } from "next/router";
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);
@@ -67,6 +68,7 @@ export default function ItemList({
   type,
 }: ItemListProps) {
   const classes = useStyles();
+  const router = useRouter();
   const useClassGridList = useHorizontal
     ? classes.gridListHorizontal
     : classes.gridList;
@@ -114,6 +116,12 @@ export default function ItemList({
     return null;
   };
 
+  const navigateToPage = (item) => {
+    router.push(
+      `/${type === "search" ? item.media_type : type}/info/${item.id}`
+    );
+  };
+
   return (
     <div>
       <div className={classes.root}>
@@ -125,7 +133,7 @@ export default function ItemList({
           onScroll={scrollContent}
         >
           {itemList.map((item, index) => (
-            <GridListTile key={index}>
+            <GridListTile key={index} onClick={() => navigateToPage(item)}>
               <img
                 src={"https://image.tmdb.org/t/p/original" + item.poster_path}
                 alt={item.title}
@@ -135,23 +143,23 @@ export default function ItemList({
                   root: classes.titleBar,
                   title: classes.title,
                 }}
-                actionIcon={
-                  <Link
-                    as={`/${type === "search" ? item.media_type : type}/info/${
-                      item.id
-                    }`}
-                    href={`/${
-                      type === "search" ? item.media_type : type
-                    }/info/[movie]`}
-                  >
-                    <IconButton
-                      aria-label={`info about ${item.title}`}
-                      className={classes.title}
-                    >
-                      <InfoIcon />
-                    </IconButton>
-                  </Link>
-                }
+                // actionIcon={
+                //   <Link
+                //     as={`/${type === "search" ? item.media_type : type}/info/${
+                //       item.id
+                //     }`}
+                //     href={`/${
+                //       type === "search" ? item.media_type : type
+                //     }/info/[movie]`}
+                //   >
+                //     <IconButton
+                //       aria-label={`info about ${item.title}`}
+                //       className={classes.title}
+                //     >
+                //       <InfoIcon />
+                //     </IconButton>
+                //   </Link>
+                // }
               />
             </GridListTile>
           ))}
