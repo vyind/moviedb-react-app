@@ -1,4 +1,4 @@
-import Category from "./movies/[category]";
+import Category from "./movie/[category]";
 import TopAppBar from "../components/topAppBar";
 
 export default function Index() {

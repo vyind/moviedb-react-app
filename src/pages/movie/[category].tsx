@@ -56,7 +56,7 @@ function Category({
     <div>
       <div>
         <Typography variant="h4" component="h6">
-          <Link as={`/movies/${categoryName}`} href={"/movies/[category]"}>
+          <Link as={`/movie/${categoryName}`} href={"/movie/[category]"}>
             <Button style={{ background: "transparent" }}>
               {categoryHeaders[categoryName]}
             </Button>
@@ -67,7 +67,7 @@ function Category({
         <ItemList
           itemList={movies}
           useHorizontal={useHorizontal}
-          type="movies"
+          type="movie"
         />
       </div>
     </div>

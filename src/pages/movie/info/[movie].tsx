@@ -5,6 +5,7 @@ import { NextPageContext } from "next";
 import ItemCard from "../../../components/itemCard";
 import ItemDetails from "../../../components/itemDetails";
 import settings from "../../../settings";
+import SimilarItems from "../../../components/similarItems";
 
 interface MovieDetailsProps {
   movieDetails?: MovieDetails;
@@ -18,6 +19,7 @@ interface CustomNextPageContext extends NextPageContext {
 
 function Movie({ movieDetails }: MovieDetailsProps) {
   const router = useRouter();
+
   const [movie, setMovie] = useState(movieDetails);
   useEffect(() => {
     async function loadData() {
@@ -28,7 +30,7 @@ function Movie({ movieDetails }: MovieDetailsProps) {
       setMovie(apiData);
     }
     if (Object.keys(movieDetails).length === 0) loadData();
-  }, []);
+  }, [movieDetails]);
   if (Object.keys(movie).length === 0)
     return (
       <div>
@@ -39,6 +41,7 @@ function Movie({ movieDetails }: MovieDetailsProps) {
     <div>
       <ItemCard itemInfo={movie} />
       <ItemDetails itemInfo={movie} />
+      <SimilarItems itemId={movie.id} type="movie" />
     </div>
   );
 }
