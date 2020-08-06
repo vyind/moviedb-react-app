@@ -82,7 +82,7 @@ export default function TopAppBar({ darkIcon, toggleTheme }) {
         <Toolbar>
           <Typography className={classes.title} variant="h4" noWrap>
             <Link as="/" href="/">
-              <span>Flicker</span>
+              <span>FLX</span>
             </Link>
           </Typography>
           <div className={classes.search}>
