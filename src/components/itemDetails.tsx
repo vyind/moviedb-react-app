@@ -52,9 +52,10 @@ export default function ItemDetails({ itemInfo }: ItemInfoProps) {
       {Object.keys(displayItems).map((key) => {
         let displayValue: any;
         if (key === "runtime") displayValue = itemInfo[key] + " minutes";
-        else if (key === "budget" || key === "revenue")
-          displayValue = "$ " + itemInfo[key];
-        else displayValue = itemInfo[key];
+        else if (key === "budget" || key === "revenue") {
+          if (itemInfo[key] === 0) displayValue = "NA";
+          else displayValue = "$ " + itemInfo[key];
+        } else displayValue = itemInfo[key];
         return (
           <DetailCard
             key={key}
