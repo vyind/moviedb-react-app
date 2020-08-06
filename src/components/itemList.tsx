@@ -139,8 +139,12 @@ export default function ItemList({
                 }}
                 actionIcon={
                   <Link
-                    as={`/${type}/info/${item.id}`}
-                    href={`/${type}/info/[movie]`}
+                    as={`/${type === "search" ? item.media_type : type}/info/${
+                      item.id
+                    }`}
+                    href={`/${
+                      type === "search" ? item.media_type : type
+                    }/info/[movie]`}
                   >
                     <IconButton
                       aria-label={`info about ${item.title}`}
