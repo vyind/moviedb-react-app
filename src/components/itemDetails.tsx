@@ -51,10 +51,16 @@ export default function ItemDetails({ itemInfo }: ItemInfoProps) {
       </div>
       {Object.keys(displayItems).map((key) => {
         let displayValue: any;
+        let numStringArr: String[];
         if (key === "runtime") displayValue = itemInfo[key] + " minutes";
         else if (key === "budget" || key === "revenue") {
+          numStringArr = itemInfo[key].toString().split("").reverse();
+          numStringArr = numStringArr.map((num, index) => {
+            if (index % 3 === 0 && index > 0) return num + ",";
+            return num;
+          });
           if (itemInfo[key] === 0) displayValue = "NA";
-          else displayValue = "$ " + itemInfo[key];
+          else displayValue = "$ " + numStringArr.reverse().join("");
         } else displayValue = itemInfo[key];
         return (
           <DetailCard
