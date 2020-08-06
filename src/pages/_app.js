@@ -5,23 +5,11 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../theme";
 import TopAppBar from "../components/topAppBar";
+import settings from "../settings";
 
 const darkTheme = createMuiTheme({
   palette: {
     type: "dark",
-  },
-  overrides: {
-    MuiCssBaseline: {
-      "@global": {
-        "*": {
-          "scrollbar-width": "none",
-        },
-        "*::-webkit-scrollbar": {
-          width: "0px",
-          height: "0px",
-        },
-      },
-    },
   },
 });
 
@@ -43,7 +31,7 @@ export default function MyApp(props) {
   return (
     <React.Fragment>
       <Head>
-        <title>FLX</title>
+        <title>{settings.app_title}</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
