@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,7 +14,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
 import BrightnessLowIcon from "@material-ui/icons/Brightness4";
 import Link from "next/link";
-import { Button } from "@material-ui/core";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,11 +48,12 @@ const useStyles = makeStyles((theme: Theme) =>
     searchIcon: {
       padding: theme.spacing(0, 2),
       height: "100%",
-      position: "absolute",
-      pointerEvents: "none",
-      display: "flex",
+      // position: "absolute",
+      pointerEvents: "all",
+      display: "inline-block",
       alignItems: "center",
-      justifyContent: "center",
+      // justifyContent: "center",
+      verticalAlign: "bottom",
     },
     inputRoot: {
       color: "inherit",
@@ -60,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+      // paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create("width"),
       width: "100%",
       [theme.breakpoints.up("sm")]: {
@@ -75,6 +76,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function TopAppBar({ darkIcon, toggleTheme }) {
   const classes = useStyles();
+  const router = useRouter();
+  const [input, setInput] = useState("");
+
+  const onTyping = (event) => {
+    setInput(event.target.value);
+  };
+
+  const onEnterKey = (event) => {
+    if (event.charCode === 13) router.push(`/search?q=${input}`);
+  };
+
+  const onButtonClick = () => {
+    router.push(`/search?q=${input}`);
+  };
 
   return (
     <div className={classes.root}>
@@ -86,7 +101,7 @@ export default function TopAppBar({ darkIcon, toggleTheme }) {
             </Link>
           </Typography>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
+            <div className={classes.searchIcon} onClick={onButtonClick}>
               <SearchIcon />
             </div>
             <InputBase
@@ -96,6 +111,8 @@ export default function TopAppBar({ darkIcon, toggleTheme }) {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              onChange={onTyping}
+              onKeyPress={onEnterKey}
             />
           </div>
 
