@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
     gridListHorizontal: {
       flexWrap: "nowrap",
       transform: "translateZ(0)",
+      scrollbarWidth: "none",
     },
     title: {
       color: "#ffffff",

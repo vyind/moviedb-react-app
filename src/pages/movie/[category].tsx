@@ -21,11 +21,15 @@ interface CustomNextPageContext extends NextPageContext {
 }
 
 const fetchUrls = {
+  trending: `https://api.themoviedb.org/3/trending/movie/week?api_key=${settings.api_key}`,
   popular: `https://api.themoviedb.org/3/movie/popular?api_key=${settings.api_key}`,
   top_rated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${settings.api_key}`,
+  latest: `https://api.themoviedb.org/3/movie/latest?api_key=${settings.api_key}`,
+  upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${settings.api_key}`,
 };
 
 const categoryHeaders = {
+  trending: "Trending Movies",
   popular: "Popular Movies",
   top_rated: "Top-Rated Movies",
 };

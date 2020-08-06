@@ -2,6 +2,7 @@ import settings from "../settings";
 import ItemList from "../components/itemList";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { Typography } from "@material-ui/core";
 
 export default function Search({ searchResult }) {
   const router = useRouter();
@@ -19,7 +20,14 @@ export default function Search({ searchResult }) {
     loadData();
   }, [searchResult]);
   if (!result || Object.keys(result).length === 0) return null;
-  return <ItemList itemList={result} useHorizontal={false} type="search" />;
+  return (
+    <div>
+      <Typography variant="h6">
+        Search results for "{router.query.q}"
+      </Typography>
+      <ItemList itemList={result} useHorizontal={false} type="search" />
+    </div>
+  );
 }
 
 Search.getInitialProps = async ({ req, query }) => {

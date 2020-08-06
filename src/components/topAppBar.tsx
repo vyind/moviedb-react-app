@@ -16,6 +16,7 @@ import BrightnessLowIcon from "@material-ui/icons/Brightness4";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import settings from "../settings";
+import { Tab, Tabs } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -101,6 +102,11 @@ export default function TopAppBar({ darkIcon, toggleTheme }) {
               <span>{settings.app_title}</span>
             </Link>
           </Typography>
+          <Tabs>
+            <Tab label="Home" />
+            <Tab label="Movies" />
+            <Tab label="TV Shows" />
+          </Tabs>
           <div className={classes.search}>
             <div className={classes.searchIcon} onClick={onButtonClick}>
               <SearchIcon />
