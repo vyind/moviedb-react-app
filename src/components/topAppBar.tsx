@@ -15,6 +15,7 @@ import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
 import BrightnessLowIcon from "@material-ui/icons/Brightness4";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import settings from "../settings";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -97,7 +98,7 @@ export default function TopAppBar({ darkIcon, toggleTheme }) {
         <Toolbar>
           <Typography className={classes.title} variant="h4" noWrap>
             <Link as="/" href="/">
-              <span>FLX</span>
+              <span>{settings.app_title}</span>
             </Link>
           </Typography>
           <div className={classes.search}>
