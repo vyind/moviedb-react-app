@@ -74,7 +74,6 @@ export default function ItemList({
   const colNo: number = Math.floor(size[0] / 200);
   const [scrollState, setScrollState] = useState(0);
   const scrollRef = useRef(null);
-
   function scrollContentLeft() {
     scrollRef.current.scrollLeft = scrollState - 250;
     setScrollState(scrollRef.current.scrollLeft);
@@ -125,7 +124,7 @@ export default function ItemList({
           ref={scrollRef}
           onScroll={scrollContent}
         >
-          {itemList.map((item) => (
+          {itemList.map((item, index) => (
             <GridListTile
               key={"https://image.tmdb.org/t/p/original" + item.poster_path}
             >

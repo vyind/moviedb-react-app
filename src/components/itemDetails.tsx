@@ -1,8 +1,7 @@
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, createStyles } from "@material-ui/core";
 import { MovieDetails } from "../../api/movieDetails";
-import DetailsCard from "./detailCard";
+import DetailCard from "./detailCard";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -57,7 +56,7 @@ export default function ItemDetails({ itemInfo }: ItemInfoProps) {
           displayValue = "$ " + itemInfo[key];
         else displayValue = itemInfo[key];
         return (
-          <DetailsCard
+          <DetailCard
             key={key}
             name={displayItems[key]}
             detailInfo={displayValue}
