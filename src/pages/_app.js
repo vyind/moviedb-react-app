@@ -15,7 +15,7 @@ const darkTheme = createMuiTheme({
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
-  const [useDarktheme, setDarkTheme] = useState(true);
+  const [useDarktheme, setDarkTheme] = useState(false);
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -39,7 +39,7 @@ export default function MyApp(props) {
       </Head>
       <ThemeProvider theme={useDarktheme ? theme : darkTheme}>
         {" "}
-        <AppNavBar darkIcon={useDarktheme} toggleTheme={onToggle} />
+        <AppNavBar toggleTheme={onToggle} />
       </ThemeProvider>
 
       <ThemeProvider theme={useDarktheme ? darkTheme : theme}>
