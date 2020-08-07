@@ -77,6 +77,12 @@ export default function ItemList({
   const colNo: number = Math.floor(size[0] / 200);
   const [scrollState, setScrollState] = useState(0);
   const scrollRef = useRef(null);
+
+  const imagePath = (item) => {
+    return item.poster_path != null
+      ? "https://image.tmdb.org/t/p/w342" + item.poster_path
+      : "/no_image.jpg";
+  };
   function scrollContentLeft() {
     scrollRef.current.scrollLeft = scrollState - 250;
     setScrollState(scrollRef.current.scrollLeft);
@@ -96,12 +102,14 @@ export default function ItemList({
         <div className={classes.scrollDiv}>
           <Button
             onClick={scrollContentLeft}
+            color="inherit"
             disabled={scrollState === 0 ? true : false}
           >
             <NavigateBeforeIcon fontSize="large" />
           </Button>
           <Button
             onClick={scrollContentRight}
+            color="inherit"
             disabled={
               scrollState === 0
                 ? false
@@ -135,10 +143,7 @@ export default function ItemList({
         >
           {itemList.map((item, index) => (
             <GridListTile key={index} onClick={() => navigateToPage(item)}>
-              <img
-                src={"https://image.tmdb.org/t/p/original" + item.poster_path}
-                alt={item.title}
-              />
+              <img src={imagePath(item)} alt={item.title} />
               <GridListTileBar
                 classes={{
                   root: classes.titleBar,

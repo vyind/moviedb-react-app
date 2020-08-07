@@ -58,13 +58,14 @@ interface ItemInfoProps {
 export default function ItemCard({ itemInfo }: ItemInfoProps) {
   const color = ratingColor(itemInfo.vote_average);
   const classes = useStyles();
-
+  console.log(itemInfo.poster_path);
+  const imagePath =
+    itemInfo.poster_path != null
+      ? "https://image.tmdb.org/t/p/w342" + itemInfo.poster_path
+      : "/no_image.jpg";
   return (
     <Card className={classes.root}>
-      <CardMedia
-        className={classes.cover}
-        image={"https://image.tmdb.org/t/p/original" + itemInfo.poster_path}
-      />
+      <CardMedia className={classes.cover} image={imagePath} />
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h4" variant="h5">
