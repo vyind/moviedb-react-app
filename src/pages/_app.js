@@ -4,7 +4,7 @@ import Head from "next/head";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../theme";
-import TopAppBar from "../components/topAppBar";
+import AppNavBar from "../components/appNavBar";
 import settings from "../settings";
 
 const darkTheme = createMuiTheme({
@@ -37,8 +37,12 @@ export default function MyApp(props) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
+      <ThemeProvider theme={useDarktheme ? theme : darkTheme}>
+        {" "}
+        <AppNavBar darkIcon={useDarktheme} toggleTheme={onToggle} />
+      </ThemeProvider>
+
       <ThemeProvider theme={useDarktheme ? darkTheme : theme}>
-        <TopAppBar darkIcon={useDarktheme} toggleTheme={onToggle} />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Component {...pageProps} />
