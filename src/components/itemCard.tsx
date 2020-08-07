@@ -64,6 +64,19 @@ export default function ItemCard({ itemInfo, type }: ItemInfoProps) {
     itemInfo.poster_path != null
       ? "https://image.tmdb.org/t/p/w342" + itemInfo.poster_path
       : "/no_image.jpg";
+
+  const creditType = () => {
+    if (type === "tv")
+      return (
+        <Credits
+          typeId={itemInfo.id}
+          type={type}
+          creator={itemInfo["created_by"]}
+        />
+      );
+    return <Credits typeId={itemInfo.id} type={type} />;
+  };
+
   return (
     <Card className={classes.root}>
       <CardMedia className={classes.cover} image={imagePath} />
@@ -99,7 +112,7 @@ export default function ItemCard({ itemInfo, type }: ItemInfoProps) {
                 return <span key={index}> • {genre.name}</span>;
               })}
             </Typography>
-            <Credits typeId={itemInfo.id} type={type} />
+            {creditType()}
           </div>
         </CardContent>
       </div>

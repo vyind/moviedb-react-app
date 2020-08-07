@@ -12,11 +12,6 @@ const useStyles = makeStyles({
     marginRight: 20,
     marginTop: 20,
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
   title: {
     fontSize: 14,
   },
@@ -28,26 +23,21 @@ const useStyles = makeStyles({
 const formattedDetail = (detail) => {
   if (typeof detail === typeof []) {
     return (
-      <Typography variant="subtitle2">
+      <Typography variant="body1">
         {detail.map((value, index) => {
-          if (index === 0) return value.name;
-          return <span key={index}> • {value.name}</span>;
+          if (index === 0)
+            return typeof value === typeof {} ? value.name : value;
+          return (
+            <span key={index}>
+              {" "}
+              • {typeof value === typeof {} ? value.name : value}
+            </span>
+          );
         })}
       </Typography>
     );
   }
-  if (typeof detail === typeof {}) {
-    console.log(detail);
-    return (
-      <Typography variant="subtitle2">
-        {Object.values(detail).map((value, index) => {
-          if (index === 0) return value;
-          return <span key={index}> • {value}</span>;
-        })}
-      </Typography>
-    );
-  }
-  return <Typography variant="h5">{detail}</Typography>;
+  return <Typography variant="body1">{detail}</Typography>;
 };
 
 export default function DetailCard({ detailInfo, name }) {

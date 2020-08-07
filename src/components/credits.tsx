@@ -2,13 +2,15 @@ import settings from "../settings";
 import { useState, useEffect } from "react";
 import { CreditDetails } from "../../api/creditDetails";
 import Typography from "@material-ui/core/Typography";
+import { CreatedBy } from "../../api/tvDetails";
 
 interface CreditsProps {
   typeId: number;
   type: string;
+  creator?: CreatedBy[];
 }
 
-export default function Credits({ typeId, type }: CreditsProps) {
+export default function Credits({ typeId, type, creator }: CreditsProps) {
   const [typeCredits, setTypeCredits] = useState(null);
   useEffect(() => {
     async function loadData() {
@@ -25,6 +27,12 @@ export default function Credits({ typeId, type }: CreditsProps) {
   const getCrewMembers = (job) => {
     const directors = typeCredits.crew.filter((member) => member.job === job);
     return directors.map((member, index) => {
+      if (index === 0) return <span key={index}>{member.name}</span>;
+      return <span key={index}> • {member.name}</span>;
+    });
+  };
+  const getCreators = (creators) => {
+    return creators.map((member, index) => {
       if (index === 0) return <span key={index}>{member.name}</span>;
       return <span key={index}> • {member.name}</span>;
     });
@@ -46,10 +54,10 @@ export default function Credits({ typeId, type }: CreditsProps) {
       </div>
       <div>
         <Typography display="inline" variant="body2" color="textPrimary">
-          <b>Director(s):&nbsp;</b>
+          <b>{type === "tv" ? "Creator" : "Director"}(s):&nbsp;</b>
         </Typography>
         <Typography display="inline" variant="body2" color="textSecondary">
-          {getCrewMembers("Director")}
+          {type === "tv" ? getCreators(creator) : getCrewMembers("Director")}
         </Typography>
       </div>
       <div>

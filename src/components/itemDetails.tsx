@@ -29,7 +29,6 @@ const useStyles = makeStyles(() =>
 
 const displayItems = {
   movie: {
-    original_title: "Original Title",
     release_date: "Release Date",
     budget: "Budget",
     revenue: "Box Office",
@@ -40,16 +39,16 @@ const displayItems = {
     production_companies: "Production Companies",
   },
   tv: {
-    original_name: "Original Name",
     status: "Status",
     first_air_date: "First Air Date",
-    episode_run_time: "Episode Runtime",
-    languages: "Languages",
+    episode_run_time: "Episode Runtime(s)",
+    networks: "Networks",
+    languages: "Language(s)",
     last_air_date: "Last Air Date",
     number_of_episodes: "No: of Episodes",
     number_of_seasons: "No: of Seasons",
     origin_country: "Origin Country",
-    original_language: "Original Language",
+    production_companies: "Production Companies",
   },
 };
 
