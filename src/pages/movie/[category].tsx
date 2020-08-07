@@ -61,9 +61,7 @@ function Category({
       <div>
         <Typography variant="h4" component="h6">
           <Link as={`/movie/${categoryName}`} href={"/movie/[category]"}>
-            <Button style={{ background: "transparent" }}>
-              {categoryHeaders[categoryName]}
-            </Button>
+            <Button color="inherit">{categoryHeaders[categoryName]}</Button>
           </Link>
         </Typography>
       </div>

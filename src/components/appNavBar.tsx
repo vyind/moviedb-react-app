@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import {
@@ -14,12 +15,12 @@ import SearchIcon from "@material-ui/icons/Search";
 import HomeIcon from "@material-ui/icons/Home";
 import MovieIcon from "@material-ui/icons/Theaters";
 import TvIcon from "@material-ui/icons/Tv";
-import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
-import BrightnessLowIcon from "@material-ui/icons/Brightness4";
+import ThemeIcon from "@material-ui/icons/BrightnessMedium";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import settings from "../settings";
 import { Tab, Tabs } from "@material-ui/core";
+import Index from "../pages";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,30 +30,32 @@ const useStyles = makeStyles((theme: Theme) =>
     bottomAppBar: {
       top: "auto",
       bottom: 0,
-      display: "block",
+      display: "flex",
       // backgroundColor: theme.palette.background.default,
       [theme.breakpoints.up("md")]: {
         display: "none",
       },
     },
-    topAppBar: {
-      // backgroundColor: theme.palette.background.default,
-    },
+
     topTabBar: {
       display: "none",
       [theme.breakpoints.up("md")]: {
-        display: "block",
+        display: "flex",
+        flexGrow: 0.3,
+        justifyContent: "space-between",
       },
     },
-    toolBar: {
+    separator: {
       display: "flex",
+      flexGrow: 1,
+    },
+    bottomTabBar: {
+      display: "flex",
+      flexGrow: 1,
       justifyContent: "space-between",
     },
-    topTab: {
-      padding: "none",
-    },
     title: {
-      flexGrow: 1,
+      flexGrow: 0.3,
       display: "none",
       [theme.breakpoints.up("sm")]: {
         display: "block",
@@ -61,9 +64,9 @@ const useStyles = makeStyles((theme: Theme) =>
     search: {
       position: "relative",
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.background.default, 0.15),
+      backgroundColor: fade(theme.palette.background.paper, 0.15),
       "&:hover": {
-        backgroundColor: fade(theme.palette.background.default, 0.25),
+        backgroundColor: fade(theme.palette.background.paper, 0.25),
       },
       marginLeft: 0,
       width: "100%",
@@ -101,11 +104,28 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function AppNavBar({ darkIcon, toggleTheme }) {
+export default function AppNavBar({ toggleTheme }) {
   const classes = useStyles();
   const router = useRouter();
   const [input, setInput] = useState("");
+  const [tab, setTab] = useState(-1);
 
+  if (tab === -1) {
+    if (router.pathname === "/") setTab(0);
+    else if (
+      router.pathname === "/movies" ||
+      router.pathname.includes("/movie/")
+    )
+      setTab(1);
+    else if (router.pathname === "/tvshows" || router.pathname.includes("/tv/"))
+      setTab(2);
+  }
+  const onTabClick = (event, newValue) => {
+    setTab(newValue);
+    if (newValue === 1) router.push("/movies");
+    else if (newValue === 2) router.push("/tvshows");
+    else router.push("/");
+  };
   const onTyping = (event) => {
     setInput(event.target.value);
   };
@@ -120,18 +140,26 @@ export default function AppNavBar({ darkIcon, toggleTheme }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default" className={classes.topAppBar}>
+      <AppBar position="static" color="default" className={classes.topTabBar}>
         <Toolbar>
           <Typography className={classes.title} variant="h4" noWrap>
             <Link as="/" href="/">
               <span>{settings.app_title}</span>
             </Link>
           </Typography>
-          <Tabs className={classes.topTabBar}>
-            <Tab label="Home" className={classes.topTab} />
-            <Tab label="Movies" />
-            <Tab label="TV Shows" />
+          <Tabs
+            value={tab}
+            onChange={onTabClick}
+            className={classes.topTabBar}
+            textColor="primary"
+            indicatorColor="primary"
+          >
+            <Tab label="Home" value={0} />
+            <Tab label="Movies" value={1} />
+            <Tab label="TV Shows" value={2} />
           </Tabs>
+
+          <div className={classes.separator} />
           <div className={classes.search}>
             <div className={classes.searchIcon} onClick={onButtonClick}>
               <SearchIcon />
@@ -149,22 +177,23 @@ export default function AppNavBar({ darkIcon, toggleTheme }) {
           </div>
 
           <IconButton aria-label="brightness" onClick={toggleTheme}>
-            {darkIcon ? <BrightnessHighIcon /> : <BrightnessLowIcon />}
+            <ThemeIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
       <AppBar position="fixed" color="default" className={classes.bottomAppBar}>
-        <Toolbar className={classes.toolBar}>
-          <IconButton>
-            <HomeIcon />
-          </IconButton>
-          <IconButton>
-            <MovieIcon />
-          </IconButton>
-          <IconButton>
-            <TvIcon />
-          </IconButton>
-        </Toolbar>
+        <Tabs
+          className={classes.bottomTabBar}
+          value={tab}
+          onChange={onTabClick}
+          textColor="primary"
+          indicatorColor="primary"
+          variant="fullWidth"
+        >
+          <Tab icon={<HomeIcon fontSize="small" />} aria-label="home" />
+          <Tab icon={<MovieIcon fontSize="small" />} aria-label="movies" />
+          <Tab icon={<TvIcon fontSize="small" />} aria-label="tvshows" />
+        </Tabs>
       </AppBar>
     </div>
   );
