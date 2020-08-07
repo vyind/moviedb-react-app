@@ -39,8 +39,8 @@ function Movie({ movieDetails }: MovieDetailsProps) {
     );
   return (
     <div>
-      <ItemCard itemInfo={movie} />
-      <ItemDetails itemInfo={movie} />
+      <ItemCard itemInfo={movie} type="movie" />
+      <ItemDetails itemInfo={movie} type="movie" />
       <SimilarItems itemId={movie.id} type="movie" />
     </div>
   );

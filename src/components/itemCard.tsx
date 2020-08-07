@@ -6,6 +6,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { MovieDetails } from "../../api/movieDetails";
 import Credits from "./credits";
+import { TvDetails } from "../../api/tvDetails";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -52,13 +53,13 @@ const ratingColor = (rating) => {
 };
 
 interface ItemInfoProps {
-  itemInfo: MovieDetails;
+  itemInfo: MovieDetails | TvDetails;
+  type: string;
 }
 
-export default function ItemCard({ itemInfo }: ItemInfoProps) {
+export default function ItemCard({ itemInfo, type }: ItemInfoProps) {
   const color = ratingColor(itemInfo.vote_average);
   const classes = useStyles();
-  console.log(itemInfo.poster_path);
   const imagePath =
     itemInfo.poster_path != null
       ? "https://image.tmdb.org/t/p/w342" + itemInfo.poster_path
@@ -69,10 +70,14 @@ export default function ItemCard({ itemInfo }: ItemInfoProps) {
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h4" variant="h5">
-            {itemInfo.title} ({itemInfo.release_date.split("-")[0]})
+            {itemInfo["title"] ? itemInfo["title"] : itemInfo["name"]} (
+            {itemInfo["release_date"]
+              ? itemInfo["release_date"].split("-")[0]
+              : itemInfo["first_air_date"].split("-")[0]}
+            )
           </Typography>
           <Typography variant="subtitle2" color="textSecondary">
-            <em>{itemInfo.tagline}</em>
+            <em>{itemInfo["tagline"] ? itemInfo["tagline"] : null}</em>
           </Typography>
         </CardContent>
         <CardContent className={classes.bottomDetails}>
@@ -94,7 +99,7 @@ export default function ItemCard({ itemInfo }: ItemInfoProps) {
                 return <span key={index}> • {genre.name}</span>;
               })}
             </Typography>
-            <Credits typeId={itemInfo.id} type="movie" />
+            <Credits typeId={itemInfo.id} type={type} />
           </div>
         </CardContent>
       </div>

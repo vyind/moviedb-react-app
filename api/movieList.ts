@@ -6,6 +6,7 @@ export interface MovieList {
 }
 
 export interface Result {
+  first_air_date: string;
   media_type: string;
   poster_path: string;
   adult: boolean;

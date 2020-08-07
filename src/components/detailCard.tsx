@@ -36,6 +36,17 @@ const formattedDetail = (detail) => {
       </Typography>
     );
   }
+  if (typeof detail === typeof {}) {
+    console.log(detail);
+    return (
+      <Typography variant="subtitle2">
+        {Object.values(detail).map((value, index) => {
+          if (index === 0) return value;
+          return <span key={index}> • {value}</span>;
+        })}
+      </Typography>
+    );
+  }
   return <Typography variant="h5">{detail}</Typography>;
 };
 
