@@ -32,6 +32,7 @@ const categoryHeaders = {
   trending: "Trending Movies",
   popular: "Popular Movies",
   top_rated: "Top-Rated Movies",
+  upcoming: "Upcoming Movies",
 };
 
 function Category({
