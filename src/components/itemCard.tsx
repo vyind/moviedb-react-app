@@ -1,5 +1,10 @@
 import React from "react";
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import {
+  Theme,
+  createStyles,
+  makeStyles,
+  createMuiTheme,
+} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -8,34 +13,38 @@ import { MovieDetails } from "../../api/movieDetails";
 import Credits from "./credits";
 import { TvDetails } from "../../api/tvDetails";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
+      flexGrow: 1,
       flexWrap: "wrap",
-      //   maxHeight: 1200,
       marginTop: 50,
       marginLeft: 20,
       marginRight: 20,
+      justifyContent: "center",
+      [theme.breakpoints.up("md")]: {
+        flexWrap: "nowrap",
+      },
     },
     details: {
-      display: "inline-block",
-      //   flexWrap: "wrap",
-      //   flexDirection: "column",
-      minWidth: 250,
-      maxWidth: 1000,
+      display: "flex",
+      flexWrap: "wrap",
+      flexDirection: "column",
     },
     bottomDetails: {
-      display: "inline-block",
-      //   flexDirection: "column",
-      //   justifyContent: "flex-end",
+      display: "flex",
+      flexDirection: "column",
+      flexWrap: "wrap",
     },
-    rating: {
-      display: "inline-block",
-      //   flexWrap: "wrap",
+    topDetails: {
+      display: "flex",
+      flexGrow: 1,
+      justifyContent: "space-between",
     },
-    content: {
-      flex: "1 0 auto",
+    separator: {
+      display: "flex",
+      flexGrow: 1,
     },
     cover: {
       maxWidth: 500,
@@ -80,19 +89,39 @@ export default function ItemCard({ itemInfo, type }: ItemInfoProps) {
   return (
     <Card className={classes.root}>
       <CardMedia className={classes.cover} image={imagePath} />
+
       <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h4" variant="h5">
-            {itemInfo["title"] ? itemInfo["title"] : itemInfo["name"]} (
-            {itemInfo["release_date"]
-              ? itemInfo["release_date"].split("-")[0]
-              : itemInfo["first_air_date"].split("-")[0]}
-            )
-          </Typography>
-          <Typography variant="subtitle2" color="textSecondary">
-            <em>{itemInfo["tagline"] ? itemInfo["tagline"] : null}</em>
-          </Typography>
-        </CardContent>
+        <div className={classes.topDetails}>
+          <CardContent>
+            <Typography component="h4" variant="h5">
+              {itemInfo["title"] ? itemInfo["title"] : itemInfo["name"]} (
+              {itemInfo["release_date"]
+                ? itemInfo["release_date"].split("-")[0]
+                : itemInfo["first_air_date"].split("-")[0]}
+              )
+            </Typography>
+            <Typography variant="subtitle2" color="textSecondary">
+              <em>{itemInfo["tagline"] ? itemInfo["tagline"] : null}</em>
+            </Typography>
+          </CardContent>
+          <div>
+            <Card style={{ background: color }}>
+              <CardContent>
+                <Typography display="inline" variant="h5">
+                  {itemInfo.vote_average}
+                  <Typography
+                    display="inline"
+                    variant="body2"
+                    color="textSecondary"
+                  >
+                    <span> ({itemInfo.vote_count})</span>
+                  </Typography>
+                </Typography>
+              </CardContent>
+            </Card>
+            <div className={classes.separator}></div>
+          </div>
+        </div>
         <CardContent className={classes.bottomDetails}>
           <div>
             <Typography display="inline" variant="body2" color="textPrimary">
@@ -115,22 +144,6 @@ export default function ItemCard({ itemInfo, type }: ItemInfoProps) {
             {creditType()}
           </div>
         </CardContent>
-      </div>
-      <div className={classes.details}>
-        <Card className={classes.rating} style={{ background: color }}>
-          <CardContent className={classes.content}>
-            <Typography display="inline" variant="h5">
-              {itemInfo.vote_average}
-              <Typography
-                display="inline"
-                variant="body2"
-                color="textSecondary"
-              >
-                <em> ({itemInfo.vote_count})</em>
-              </Typography>
-            </Typography>
-          </CardContent>
-        </Card>
       </div>
     </Card>
   );
