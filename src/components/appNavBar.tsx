@@ -56,9 +56,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 0.3,
+    },
+    titleText: {
       display: "none",
       [theme.breakpoints.up("sm")]: {
-        display: "block",
+        display: "inline-block",
       },
     },
     search: {
@@ -69,12 +71,18 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: fade(theme.palette.background.paper, 0.25),
       },
       marginLeft: 0,
-      width: "100%",
+      display: "flex",
+      width: "auto",
       [theme.breakpoints.up("sm")]: {
         display: "block",
         marginLeft: theme.spacing(1),
         width: "auto",
       },
+    },
+    logoIcon: {
+      height: 50,
+      paddingTop: 5,
+      paddingRight: 5,
     },
     searchIcon: {
       // padding: theme.spacing(0, 2),
@@ -140,11 +148,19 @@ export default function AppNavBar({ toggleTheme }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default" className={classes.topTabBar}>
+      <AppBar position="static" color="default">
         <Toolbar>
           <Typography className={classes.title} variant="h4" noWrap>
             <Link as="/" href="/">
-              <span>{settings.app_title}</span>
+              <div>
+                {" "}
+                <img
+                  className={classes.logoIcon}
+                  src="/flixbase.png"
+                  alt="flixbase-icon"
+                />
+                <span className={classes.titleText}>{settings.app_title}</span>
+              </div>
             </Link>
           </Typography>
           <Tabs
