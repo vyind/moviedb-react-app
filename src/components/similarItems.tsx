@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import ItemList from "./itemList";
-import Link from "next/link";
 import { makeStyles, createStyles } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
@@ -8,8 +7,6 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: "inline-block",
-      //   flexWrap: "wrap",
-      //   maxHeight: 1200,
       flexDirection: "column",
       marginTop: 20,
       marginLeft: 20,
@@ -19,10 +16,8 @@ const useStyles = makeStyles(() =>
     details: {
       display: "flex",
       flexWrap: "wrap",
-      //   flexDirection: "column",
       minWidth: 250,
       paddingBottom: 10,
-      //   maxWidth: 1000,
     },
   })
 );

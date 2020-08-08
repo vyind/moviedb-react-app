@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme: Theme) =>
       scrollBehavior: "smooth",
     },
     gridListHorizontal: {
+      display: "flex",
+      flexGrow: 1,
+      justifyContent: "space-between",
       flexWrap: "nowrap",
       transform: "translateZ(0)",
       scrollbarWidth: "none",
@@ -53,6 +56,10 @@ const useStyles = makeStyles((theme: Theme) =>
     scrollDiv: {
       display: "flex",
       justifyContent: "space-between",
+    },
+    tileImage: {
+      // width: 210,
+      height: 310,
     },
   })
 );
@@ -74,7 +81,7 @@ export default function ItemList({
     ? classes.gridListHorizontal
     : classes.gridList;
   const size: number[] = useWindowSize();
-  const colNo: number = Math.floor(size[0] / 220);
+  const colNo: number = Math.floor(size[0] / 200);
   const [scrollState, setScrollState] = useState(0);
   const scrollRef = useRef(null);
 
@@ -143,7 +150,11 @@ export default function ItemList({
         >
           {itemList.map((item, index) => (
             <GridListTile key={index} onClick={() => navigateToPage(item)}>
-              <img src={imagePath(item)} alt={item.title} />
+              <img
+                className={classes.tileImage}
+                src={imagePath(item)}
+                alt={item.title}
+              />
               <GridListTileBar
                 classes={{
                   root: classes.titleBar,
