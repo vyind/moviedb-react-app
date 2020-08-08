@@ -6,7 +6,6 @@ import { Typography } from "@material-ui/core";
 export default function Search({ searchResult }) {
   const router = useRouter();
   const [result, setResult] = useState(searchResult);
-  console.log(router);
   useEffect(() => {
     async function loadData() {
       const response = await fetch(
