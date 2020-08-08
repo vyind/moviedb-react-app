@@ -8,7 +8,6 @@ import {
   makeStyles,
 } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import theme from "../theme";
 import AppNavBar from "../components/appNavBar";
 import Footer from "../components/footer";
 
@@ -18,7 +17,13 @@ const darkTheme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((theme) =>
+const lightTheme = createMuiTheme({
+  palette: {
+    type: "light",
+  },
+});
+
+const useStyles = makeStyles(() =>
   createStyles({
     bottomPadding: {
       paddingBottom: 50,
@@ -50,12 +55,12 @@ export default function MyApp(props) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <ThemeProvider theme={useDarktheme ? theme : darkTheme}>
+      <ThemeProvider theme={useDarktheme ? lightTheme : darkTheme}>
         {" "}
         <AppNavBar toggleTheme={onToggle} />
       </ThemeProvider>
 
-      <ThemeProvider theme={useDarktheme ? darkTheme : theme}>
+      <ThemeProvider theme={useDarktheme ? darkTheme : lightTheme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Component {...pageProps} />
