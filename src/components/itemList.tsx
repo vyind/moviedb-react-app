@@ -74,7 +74,7 @@ export default function ItemList({
     ? classes.gridListHorizontal
     : classes.gridList;
   const size: number[] = useWindowSize();
-  const colNo: number = Math.floor(size[0] / 200);
+  const colNo: number = Math.floor(size[0] / 220);
   const [scrollState, setScrollState] = useState(0);
   const scrollRef = useRef(null);
 
@@ -137,7 +137,7 @@ export default function ItemList({
         <GridList
           className={useClassGridList}
           cols={colNo}
-          cellHeight={300}
+          cellHeight={310}
           ref={scrollRef}
           onScroll={scrollContent}
         >
