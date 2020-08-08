@@ -164,8 +164,8 @@ export default function AppNavBar({ toggleTheme }) {
             value={tab}
             onChange={onTabClick}
             className={classes.topTabBar}
-            textColor="primary"
-            indicatorColor="primary"
+            textColor="secondary"
+            TabIndicatorProps={{ style: { height: 0 } }}
           >
             <Tab label="Home" value={0} />
             <Tab label="Movies" value={1} />
