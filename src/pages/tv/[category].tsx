@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import settings from "../../settings";
 
 interface PopularListProps {
   tvPopular?: Result[];
@@ -21,11 +20,11 @@ interface CustomNextPageContext extends NextPageContext {
 }
 
 const fetchUrls = {
-  trending: `https://api.themoviedb.org/3/trending/tv/week?api_key=${settings.api_key}`,
-  popular: `https://api.themoviedb.org/3/tv/popular?api_key=${settings.api_key}`,
-  top_rated: `https://api.themoviedb.org/3/tv/top_rated?api_key=${settings.api_key}`,
-  on_the_air: `https://api.themoviedb.org/3/tv/on_the_air?api_key=${settings.api_key}`,
-  airing_today: `https://api.themoviedb.org/3/tv/airing_today?api_key=${settings.api_key}`,
+  trending: `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
+  popular: `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
+  top_rated: `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
+  on_the_air: `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
+  airing_today: `https://api.themoviedb.org/3/tv/airing_today?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
 };
 
 const categoryHeaders = {

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import settings from "../settings";
 import ItemList from "./itemList";
 import Link from "next/link";
 import { makeStyles, createStyles } from "@material-ui/core";
@@ -34,7 +33,7 @@ export default function SimilarItems({ itemId, type }) {
   useEffect(() => {
     async function loadData() {
       const response = await fetch(
-        `https://api.themoviedb.org/3/${type}/${itemId}/similar?api_key=${settings.api_key}`
+        `https://api.themoviedb.org/3/${type}/${itemId}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
       );
       const apiData = await response.json();
       setSimilarItems(apiData.results);

@@ -1,4 +1,3 @@
-import settings from "../settings";
 import { useState, useEffect } from "react";
 import { CreditDetails } from "../../api/creditDetails";
 import Typography from "@material-ui/core/Typography";
@@ -15,7 +14,7 @@ export default function Credits({ typeId, type, creator }: CreditsProps) {
   useEffect(() => {
     async function loadData() {
       const response = await fetch(
-        `https://api.themoviedb.org/3/${type}/${typeId}/credits?api_key=${settings.api_key}`
+        `https://api.themoviedb.org/3/${type}/${typeId}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
       );
       const apiData: CreditDetails = await response.json();
       setTypeCredits(apiData);

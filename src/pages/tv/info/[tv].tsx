@@ -4,7 +4,6 @@ import { TvDetails } from "../../../../api/tvDetails";
 import { NextPageContext } from "next";
 import ItemCard from "../../../components/itemCard";
 import ItemDetails from "../../../components/itemDetails";
-import settings from "../../../settings";
 import SimilarItems from "../../../components/similarItems";
 
 interface TvDetailsProps {
@@ -24,7 +23,7 @@ function Tv({ tvDetails }: TvDetailsProps) {
   useEffect(() => {
     async function loadData() {
       const response = await fetch(
-        `https://api.themoviedb.org/3/tv/${router.query.movie}?api_key=${settings.api_key}`
+        `https://api.themoviedb.org/3/tv/${router.query.movie}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
       );
       const apiData = await response.json();
       setTv(apiData);
@@ -49,7 +48,7 @@ function Tv({ tvDetails }: TvDetailsProps) {
 Tv.getInitialProps = async ({ query, req }: CustomNextPageContext) => {
   if (!req) return { tvDetails: {} };
   const response = await fetch(
-    `https://api.themoviedb.org/3/tv/${query.tv}?api_key=${settings.api_key}`
+    `https://api.themoviedb.org/3/tv/${query.tv}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
   const apiData: TvDetails | undefined = await response.json();
   return { tvDetails: apiData };

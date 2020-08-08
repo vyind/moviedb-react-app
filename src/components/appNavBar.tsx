@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import {
@@ -18,9 +17,7 @@ import TvIcon from "@material-ui/icons/Tv";
 import ThemeIcon from "@material-ui/icons/BrightnessMedium";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import settings from "../settings";
 import { Tab, Tabs } from "@material-ui/core";
-import Index from "../pages";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -159,7 +156,7 @@ export default function AppNavBar({ toggleTheme }) {
                   src="/flixbase.png"
                   alt="flixbase-icon"
                 />
-                <span className={classes.titleText}>{settings.app_title}</span>
+                <span className={classes.titleText}>Flixbase</span>
               </div>
             </Link>
           </Typography>

@@ -11,7 +11,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../theme";
 import AppNavBar from "../components/appNavBar";
 import Footer from "../components/footer";
-import settings from "../settings";
 
 const darkTheme = createMuiTheme({
   palette: {
@@ -45,7 +44,7 @@ export default function MyApp(props) {
   return (
     <React.Fragment>
       <Head>
-        <title>{settings.app_title}</title>
+        <title>Flixbase</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"

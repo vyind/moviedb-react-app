@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import settings from "../../settings";
 
 interface PopularListProps {
   moviesPopular?: Result[];
@@ -21,11 +20,11 @@ interface CustomNextPageContext extends NextPageContext {
 }
 
 const fetchUrls = {
-  trending: `https://api.themoviedb.org/3/trending/movie/week?api_key=${settings.api_key}`,
-  popular: `https://api.themoviedb.org/3/movie/popular?api_key=${settings.api_key}`,
-  top_rated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${settings.api_key}`,
-  latest: `https://api.themoviedb.org/3/movie/latest?api_key=${settings.api_key}`,
-  upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${settings.api_key}`,
+  trending: `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
+  popular: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
+  top_rated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
+  latest: `https://api.themoviedb.org/3/movie/latest?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
+  upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
 };
 
 const categoryHeaders = {
